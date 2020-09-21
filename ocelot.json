@@ -4,15 +4,35 @@
   },
   "Routes": [
     {
-      "DownstreamPathTemplate": "/weatherforecast",
-      "DownstreamScheme": "https",
+      "DownstreamPathTemplate": "/",
+      "DownstreamScheme": "http",
       "DownstreamHostAndPorts": [
         {
           "Host": "erp-angular-webapp",
           "Port": 80
         }
       ],
-      "UpstreamPathTemplate": "/api/weather",
+      "UpstreamPathTemplate": "/",
+      "UpstreamHttpMethod": [ "Get" ],
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "5s",
+        "PeriodTimespan": 1,
+        "Limit": 1
+      },
+      "FileCacheOptions": { "TtlSeconds": 30 }
+    },
+    {
+      "DownstreamPathTemplate": "/",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "identity-server",
+          "Port": 6566
+        }
+      ],
+      "UpstreamPathTemplate": "/idp",
       "UpstreamHttpMethod": [ "Get" ],
       "AuthenticationOptions": {
         "AuthenticationProviderKey": "Bearer",
