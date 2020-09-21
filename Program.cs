@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
@@ -20,7 +17,14 @@ namespace APIGateway
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseStartup<Startup>();
-                });
+                    var assemblyName = typeof(Startup).GetTypeInfo().Assembly.FullName;
+                    var env = System.Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+                    webBuilder.UseKestrel();
+                    // webBuilder.UseStartup<Startup>();
+                    webBuilder.UseStartup(assemblyName);
+                    webBuilder.ConfigureAppConfiguration(config => config.AddJsonFile($"ocelot.{ env }.json"));
+                    webBuilder.UseUrls("http://+:8080");
+                    
+                }).ConfigureLogging(logging => logging.AddConsole());
     }
 }
