@@ -20,7 +20,8 @@ namespace APIGateway
                     var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
                     webBuilder.UseStartup<Startup>();
                     webBuilder.ConfigureAppConfiguration(config =>
-                        config.AddJsonFile($"ocelot.{env}.json"));
+                        config.AddJsonFile(env == "Development" ? "ocelot.Development.json" : "ocelot.json"));
+                    webBuilder.UseUrls("http://+:8080");
                 })
                 .ConfigureLogging(logging => logging.AddConsole());
     }

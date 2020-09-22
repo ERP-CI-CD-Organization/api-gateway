@@ -1,27 +1,23 @@
 # 3.1 (238MB) vs 3.1-alpine (138MB)
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-alpine AS build
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build
 # mcr.microsoft.com/dotnet/core/aspnet:3.1 | ASP.NET Core, with runtime only and ASP.NET Core optimizations, on Linux and Windows (multi-arch)
 # mcr.microsoft.com/dotnet/core/sdk:3.1    |.NET Core, with SDKs included, on Linux and Windows (multi-arch) | Size after build:238MB
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
-COPY APIGateway/*.csproj APIGateway/
-RUN dotnet restore ERP-API/ERP-API.csproj
+COPY *.csproj .
+RUN dotnet restore APIGateway.csproj
 
-# copy and build app and libraries
-COPY EAPIGateway/ APIGateway/
-
-WORKDIR /source/APIGateway/
-RUN dotnet build -c release --no-restore
+COPY . .
 
 
-
-FROM build AS publish
-RUN dotnet publish -c release --no-build -o /app
+RUN dotnet publish -c release -o /app --no-restore
 
 # final stage/image
 # 3.1
-FROM mcr.microsoft.com/dotnet/core/runtime:3.1-alpine
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
 WORKDIR /app
-COPY --from=publish /app .
+COPY --from=build /app .
 ENTRYPOINT ["dotnet", "APIGateway.dll"]
+
+

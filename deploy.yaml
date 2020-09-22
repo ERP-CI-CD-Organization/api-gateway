@@ -14,9 +14,6 @@ spec:
     spec:
       containers:
       - name: api-gateway
-        # env:
-        # - name: SPRING_PROFILES_ACTIVE
-        #   value: production-microservice
         image: api-gateway
         # pull image from remote server ? 
         imagePullPolicy: Never
@@ -40,6 +37,6 @@ spec:
   ports:
     - name: http
       port: 8080
-      nodePort: 80
+      nodePort: 30020
 
   type: NodePort
