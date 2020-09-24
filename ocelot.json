@@ -12,6 +12,14 @@
       "UpstreamPathTemplate": "/",
       "ServiceName": "erp-angular-webapp",
       "UpstreamHttpMethod": [ "Get" ]
+    },
+    {
+      "DownstreamPathTemplate": "/",
+      "DownstreamScheme": "http",
+      "UpstreamPathTemplate": "/idp",
+      "ServiceName": "identityserver",
+      "UpstreamHttpMethod": [ "Get" ]
     }
+
   ]
 }
