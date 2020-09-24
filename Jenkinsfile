@@ -23,7 +23,7 @@ pipeline {
       stage('Build and Push Image') {
          steps {
              sh 'echo current git commit is ${GITCOMMITSHA}'
-             sh 'docker image build -t ${GITCOMMITSHA} -t ${SERVICE_NAME} .'
+             sh 'docker image build  -t ${SERVICE_NAME}:latest -t ${SERVICE_NAME}:${GITCOMMITSHA} .'
            
          }
       }
