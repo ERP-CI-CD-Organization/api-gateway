@@ -14,7 +14,7 @@
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/",
+      "DownstreamPathTemplate": "/.well-known/openid-configuration",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/idp",
       "ServiceName": "identityserver",
