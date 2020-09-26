@@ -7,16 +7,16 @@
   },
   "Routes": [
     {
-      "DownstreamPathTemplate": "/",
+      "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "http",
       "UpstreamPathTemplate": "/",
       "ServiceName": "erp-angular-webapp",
       "UpstreamHttpMethod": [ "Get" ]
     },
     {
-      "DownstreamPathTemplate": "/.well-known/openid-configuration",
+      "DownstreamPathTemplate": "/{url}",
       "DownstreamScheme": "http",
-      "UpstreamPathTemplate": "/idp",
+      "UpstreamPathTemplate": "/idp/{url}",
       "ServiceName": "identityserver",
       "UpstreamHttpMethod": [ "Get" ]
     }
