@@ -37,6 +37,7 @@ spec:
   ports:
     - name: http
       port: 8080
-      nodePort: 30020
+      targetPort: 8080
+      nodePort: 30070
 
   type: NodePort
